@@ -2,10 +2,10 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "../components/Auth";
-import data from "../../firebase";
 import {createUserWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth"
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import data from "../firebase";
 
 
 function SingUp() {
