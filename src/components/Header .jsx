@@ -1,8 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuthStatus } from "../Hooks/AuthHook";
 
 function Header() {
   const logation = useLocation();
   const navigate = useNavigate();
+  const { logIn } = useAuthStatus();
+
   function checkpath(path) {
     if (path === logation.pathname) {
       return true;
@@ -23,16 +26,17 @@ function Header() {
         <ul className="flex gap-4 text-[18px] pt-4 ">
           <li
             className={`cursor-pointer text-gray-400  font-sm pb-4 ${
-              checkpath("/") && " text-black-600 border-b-4  border-red-600 active"
+              checkpath("/") &&
+              " text-black-600 border-b-4  border-red-600 active"
             }`}
-
             onClick={() => navigate("/")}
           >
             Home
           </li>
           <li
             className={`cursor-pointer text-gray-400 font-sm pb-4 ${
-              checkpath("/Offer") && "text-black-500 border-b-4  border-red-600 active"
+              checkpath("/Offer") &&
+              "text-black-500 border-b-4  border-red-600 active"
             }`}
             onClick={() => navigate("/Offer")}
           >
@@ -40,12 +44,13 @@ function Header() {
           </li>
           <li
             className={`cursor-pointer text-gray-400 font-sm pb-4 ${
-              checkpath("/SingIn") && " text-black border-b-4  border-red-600 active"
+              (checkpath("/SingIn") || checkpath("/profile")) &&    //check the value with path name
+              " text-black border-b-4  border-red-600 active"
             }`}
-            onClick={() => navigate("/SingIn")}
-          >
-            SingIn
-          </li>
+            onClick={() => navigate("/profile")}
+          > 
+            {logIn ? "Profile" : "Sign In"}                         
+          </li>                         
         </ul>
       </div>
     </div>
