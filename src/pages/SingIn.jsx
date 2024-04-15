@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { FaEye,FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Auth from "../components/Auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+
 
 
 function SingIn() {
@@ -11,8 +14,26 @@ function SingIn() {
     password:''
 
   })
+  const navigate=useNavigate()
   
   const{email,password}=fromdata;
+
+  async function loginsubmit(e){
+    e.preventDefault()
+    const auth= getAuth()
+    try {
+      const userCredential= await signInWithEmailAndPassword(auth, email, password)
+       const user=userCredential.user
+       console.log(user);
+       if (userCredential.user){
+        navigate("/")
+       }
+
+    } catch (error) {
+       toast.error("some error")
+    }
+
+  }
   
 
   function onchange(e){
@@ -21,7 +42,7 @@ function SingIn() {
     })
   );
   }
-  console.log(show);
+
 
   function settingshow() {
     setShow((prev)=> !prev) 
@@ -36,7 +57,7 @@ function SingIn() {
         <img className="w-full rounded-xl" src="https://plus.unsplash.com/premium_photo-1661775953246-410e3a33977c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
       </div>
       <div className="right flex flex-col   w-full md:w-[55%] lg:w-[38%] lg:ml-2 ">
-      <form className="w-full mb-6">
+      <form onSubmit={loginsubmit} className="w-full mb-6">
       <input type="email" id="email" value={email} onChange={onchange} placeholder="Enter your Email Here" className="w-full mb-6" />
       <div className="password relative">
       <input type={show ? "text":"password"} id="password" value={password} onChange={onchange} placeholder="Enter your Password Here" className="w-full" />
@@ -52,7 +73,7 @@ function SingIn() {
         </div>
        
       </div>
-      <button className="w-full mt-6 mb-4 bg-blue-900 text-white text-lg p-2"> SING IN </button>
+      <button onClick={loginsubmit}  className="w-full mt-6 mb-4 bg-blue-900 text-white text-lg p-2"> SING IN </button>
       <h2 className="text-center">OR</h2>
        <Auth />
       </form>

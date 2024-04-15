@@ -8,7 +8,7 @@ function Header() {
       return true;
     }
   }
-  console.log(logation);
+
   return (
     <div className="header  sticky bg-white flex justify-between mr-1 pr-4 items-center border-b-2 shadow-sm ">
       <div className="header__left">
