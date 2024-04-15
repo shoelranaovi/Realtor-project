@@ -1,9 +1,11 @@
 
 import { getAuth } from 'firebase/auth'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
   const auth =getAuth()
+  const navigate=useNavigate()
    // eslint-disable-next-line no-unused-vars
    const [fromData,setFromData]=useState({
      name: auth.currentUser.displayName,
@@ -12,6 +14,11 @@ function Profile() {
    console.log(auth.currentUser);
 
    const{name,email}=fromData
+
+   function signOut(){
+    auth.signOut()
+    navigate("/")
+   }
 
   return (
     <div className='flex justify-center  flex-col items-center gap-6  '>
@@ -23,7 +30,7 @@ function Profile() {
           <div className='flex gap-2'>
             <p>Do you Change your Name ? <span className='text-red-600'> Edit </span></p>
           </div>
-           <p className=' text-blue-700'>Sign Out</p>
+           <p onClick={signOut} className=' cursor-pointer text-blue-700'>Sign Out</p>
         </div>
       </div>
 
