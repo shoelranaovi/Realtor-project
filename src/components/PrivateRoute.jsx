@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router-dom"
 
 import  { useAuthStatus } from "../Hooks/AuthHook";
 
+import Spiner from "./Spiner";
 
 export default function PrivateRoute() {
     
@@ -10,10 +11,10 @@ export default function PrivateRoute() {
     
    
     if (loding) {
-        return <h1> loading </h1>
+        return  <Spiner />
         
     }
    
-  return logIn ? <Outlet /> : <Navigate to="/SingIn" />
+  return logIn ? <Outlet /> : <Navigate to="/SingIn" />   
 }
 

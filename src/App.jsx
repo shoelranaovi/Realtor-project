@@ -14,7 +14,7 @@ import PrivateRoute from "./components/PrivateRoute";
 export default function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter className="overflow-hidden">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
