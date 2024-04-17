@@ -10,11 +10,12 @@ import Header from "./components/Header ";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from "./components/PrivateRoute";
+import Createlisting from "./pages/Create-listing";
 
 export default function App() {
   return (
     <>
-      <BrowserRouter className="overflow-hidden">
+      <BrowserRouter >
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,6 +23,9 @@ export default function App() {
           <Route path="/Offer" element={<Offer />} />
           <Route path="/Profile" element={<PrivateRoute />}>
           <Route path="/Profile" element={<Profile />} />
+          </Route>
+          <Route path="/CreateListing" element={<PrivateRoute />}>
+          <Route path="/CreateListing" element={<Createlisting />} />
           </Route>
           <Route path="/SingIn" element={<SingIn />} />
           <Route path="/SingUp" element={<SingUp />} />
